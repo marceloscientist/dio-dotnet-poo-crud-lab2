@@ -21,10 +21,10 @@ namespace DIO.Series
 
         public override string ToString() {
             string retorno = "";
-            retorno += "Gênero: " + this.Genero + Environment.NewLine;
-            retorno += "Título: " + this.Titulo + Environment.NewLine;
-            retorno += "Descrição: " + this.Descricao + Environment.NewLine;
-            retorno += "Ano de Início: " + this.Ano + Environment.NewLine;
+            retorno += "Gênero: " + this.Genero + Environment.NewLine + "\n";
+            retorno += "Título: " + this.Titulo + Environment.NewLine + "\n";
+            retorno += "Descrição: " + this.Descricao + Environment.NewLine + "\n";
+            retorno += "Ano de Início: " + this.Ano + Environment.NewLine + "\n";
             retorno += "Excluido: " + this.Excluido; 
             return retorno;
         }
@@ -38,5 +38,9 @@ namespace DIO.Series
         public void Exclui() {
             this.Excluido = true;
         }
+        public bool retornaExcluido() {
+            return this.Excluido;
+        }
+ 
     }
 }

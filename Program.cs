@@ -18,13 +18,13 @@ namespace DIO.Series
                     InserirSerie();
                         break;
                     case "3":
-                    //AtualizarSerie();
+                    AtualizarSerie();
                         break;
                     case "4":
-                    //ExcluirSerie();
+                    ExcluirSerie();
                         break;
                     case "5":
-                    //VisualizarSerie();
+                    VisualizarSerie();
                         break;
                     case "C":
                     Console.Clear();
@@ -50,7 +50,8 @@ namespace DIO.Series
             }
             foreach (var serie in lista)
             {
-                Console.WriteLine("#ID {0}: - {1}", serie.retornaId(), serie.retornaTitulo());
+                var excluido = serie.retornaExcluido();
+                    Console.WriteLine("#ID {0}: - {1} {2}", serie.retornaId(), serie.retornaTitulo(), (excluido? "**Excluido**": ""));
             }
 
         }
@@ -80,6 +81,60 @@ namespace DIO.Series
                                         descricao: entradaDescricao);
             repositorio.Insere(novaSerie);
         }
+
+        private static void AtualizarSerie() {
+            Console.Write("Digite o id da série: ");
+            int indiceSerie = int.Parse(Console.ReadLine());
+            foreach (int i in Enum.GetValues(typeof(Genero)))
+            {
+                Console.WriteLine(
+                                    "{0}-{1}", 
+                                    i, 
+                                    Enum.GetName(typeof(Genero), i)
+                );
+            }
+            Console.Write("Digite o genêro entre as opções acima: ");
+            int entradaGenero = int.Parse(Console.ReadLine());
+
+            Console.Write("Digite o Título da Série: ");
+            string entradaTítulo = Console.ReadLine();
+
+            Console.Write("Digite o ano início da Série: ");
+            int entradaAno = int.Parse(Console.ReadLine());
+
+            Console.Write("Digite o Descrição da Série: ");
+            string entradaDescricao = Console.ReadLine();
+
+            Serie atualizaSerie = new Serie(
+                id: indiceSerie,
+                genero: (Genero)entradaGenero,
+                titulo: entradaTítulo,
+                ano: entradaAno, 
+                descricao: entradaDescricao
+            );
+
+            repositorio.Atualiza(indiceSerie, atualizaSerie);
+        }
+
+        private static void ExcluirSerie() {
+            Console.Write("Deseja realmente excluir? Y ou N");
+            string opcaoExclusao = Console.ReadLine().ToUpper();
+            if(opcaoExclusao == "Y") {
+                Console.Write("Digite o id da série: ");
+                int indiceSerie = int.Parse((Console.ReadLine()));
+                repositorio.Exclui(indiceSerie);
+                return;
+            }
+            Console.Write("Sem problemas...");
+            return;
+        }
+        private static void VisualizarSerie() {
+
+            Console.Write("A implementar a visualização individual da série: ");
+        }
+
+        
+
 
         private static string ObterOpcaoUsuario() {
             Console.WriteLine();
